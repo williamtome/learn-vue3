@@ -10,18 +10,18 @@
     <div id="app">
         <div class="container mt-5">
             <div class="mx-auto" style="width: 200px;">
-                <card></card>
+                <card v-for="post in posts" :post="post"></card>
             </div>
         </div>
     </div>
 
     <template id="card">
         <div class="card" style="width: 18rem;">
-            <card-image :image="cardImage"></card-image>
+            <card-image :image="post.image"></card-image>
             <div class="card-body">
-                <h5 class="card-title">{{ title }}</h5>
-                <card-description :description="cardDescription"></card-description>
-                <card-actions :view="false" :edit="true"></card-actions>
+                <h5 class="card-title">{{ post.title }}</h5>
+                <card-description :description="post.description"></card-description>
+                <card-actions :view="post.view" :edit="post.edit"></card-actions>
             </div>
         </div>
     </template>
@@ -54,18 +54,19 @@
         const app = Vue.createApp({
             data() {
                 return {
+                    posts: [
+                        { title: 'Título 1', description: 'Descrição 1', image: 'https://placehold.co/400', view: true, edit: false },
+                        { title: 'Título 2', description: 'Descrição 2', image: 'https://placehold.co/400', view: false, edit: true },
+                        { title: 'Título 3', description: 'Descrição 3', image: 'https://placehold.co/400', view: true, edit: false },
+                        { title: 'Título 4', description: 'Descrição 4', image: 'https://placehold.co/400', view: true, edit: true },
+                        { title: 'Título 5', description: 'Descrição 5', image: 'https://placehold.co/400', view: false, edit: true },
+                    ]
                 }
             },
         })
 
         app.component('card', {
-            data() {
-                return {
-                    title: 'Título de teste',
-                    cardImage: 'https://placehold.co/400',
-                    cardDescription: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquam cum ea enim est ex id illum laborum nam nostrum obcaecati placeat possimus, quasi repudiandae, rerum sequi, sit tenetur vitae.',
-                }
-            },
+            props: ['post'],
             template: '#card'
         })
 
@@ -76,10 +77,6 @@
 
         app.component('card-description', {
             props: ['description'],
-            data() {
-                return {
-                }
-            },
             template: '#cardDescription'
         })
 
