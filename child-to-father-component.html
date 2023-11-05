@@ -9,8 +9,12 @@
     <div id="app">
         <div class="container mt-5">
             <div class="mx-auto" style="width: 600px;">
-                {{fatherUser}}
-                <search-user v-model="fatherUser"></search-user>
+                {{firstName}}<br>
+                {{lastName}}
+                <search-user
+                    v-model:first-name="firstName"
+                    v-model:last-name="lastName"
+                ></search-user>
             </div>
         </div>
     </div>
@@ -20,14 +24,20 @@
             <div class="card-body">
                 <div class="input-group">
                     <input
-                        v-model="username"
                         type="text"
                         class="form-control"
-                        placeholder="Digite o nome do usuário"
-                        @keyup="emitEvent"
+                        placeholder="Nome"
+                        :value="firstName"
+                        @input="onFirstName"
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Sobrenome"
+                        :value="lastName"
+                        @input="onLastName"
                     >
                     <button
-                        @click="emitEvent"
                         class="btn btn-outline-secondary"
                         type="button"
                     >
@@ -43,24 +53,24 @@
         const app = Vue.createApp({
             data() {
                 return {
-                    fatherUser: '',
+                    firstName: 'John',
+                    lastName: 'Doe',
                 }
             },
         })
 
         app.component('search-user', {
-            props: ['modelValue'],
+            props: ['firstName', 'lastName'],
             data() {
                 return {
-                    username: 'LaraVue',
                 }
             },
-            created() {
-                this.user = this.modelValue
-            },
             methods: {
-                emitEvent() {
-                    this.$emit('update:modelValue', this.username)
+                onFirstName($event) {
+                    this.$emit('update:first-name', $event.target.value)
+                },
+                onLastName($event) {
+                    this.$emit('update:last-name', $event.target.value)
                 }
             },
             template: '#searchUser',
