@@ -18,7 +18,12 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <div class="input-group">
-                    <input v-model="username" type="text" class="form-control" placeholder="Digite o nome do usuário">
+                    <input
+                        v-model="username"
+                        type="text"
+                        class="form-control"
+                        placeholder="Digite o nome do usuário"
+                    >
                     <button
                         @click="emitEvent"
                         class="btn btn-outline-secondary"
