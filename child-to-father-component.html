@@ -12,8 +12,8 @@
                 {{firstName}}<br>
                 {{lastName}}
                 <search-user
-                    v-model:first-name="firstName"
-                    v-model:last-name="lastName"
+                    v-model:first-name.uppercase="firstName"
+                    v-model:last-name.lowercase="lastName"
                 ></search-user>
             </div>
         </div>
@@ -60,17 +60,29 @@
         })
 
         app.component('search-user', {
-            props: ['firstName', 'lastName'],
+            props: ['firstName', 'firstNameModifiers', 'lastName', 'lastNameModifiers'],
             data() {
                 return {
                 }
             },
             methods: {
                 onFirstName($event) {
-                    this.$emit('update:first-name', $event.target.value)
+                    let firstName = $event.target.value
+
+                    if (this.firstNameModifiers?.uppercase) {
+                        firstName = firstName.toUpperCase()
+                    }
+
+                    this.$emit('update:first-name', firstName)
                 },
                 onLastName($event) {
-                    this.$emit('update:last-name', $event.target.value)
+                    let lastName = $event.target.value
+
+                    if (this.lastNameModifiers?.lowercase) {
+                        lastName = lastName.toLowerCase()
+                    }
+
+                    this.$emit('update:last-name', lastName)
                 }
             },
             template: '#searchUser',
