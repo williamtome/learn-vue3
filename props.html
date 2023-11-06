@@ -13,6 +13,9 @@
                     :first-name="user.first_name"
                     :last-name="user.last_name"
                     :age="user.age"
+                    hero
+                    :powers="user.powers"
+                    :features="user.features"
                 ></user-profile>
             </div>
         </div>
@@ -21,10 +24,13 @@
     <template id="userProfile">
         <div class="card shadow-sm">
             <div class="card-body">
-                Meu componente <br><br>
+                <h4>Meu perfil</h4>
                 Nome: {{firstName}} <br>
                 Sobrenome: {{lastName}} <br>
-                Idade: {{age}}
+                Idade: {{age}} <br>
+                Herói: {{hero ? 'Eu sou herói' : 'Não sou herói'}} <br>
+                Poderes: {{powers}} <br>
+                Características: {{features}}
             </div>
         </div>
     </template>
@@ -38,13 +44,23 @@
                         first_name: 'Jon',
                         last_name: 'Snow',
                         age: 35,
+                        hero: true,
+                        powers: ['Espada mágica', 'Imortalidade'],
+                        features: { hair: 'long' }
                     }
                 }
             },
         })
 
         app.component('user-profile', {
-            props: ['firstName', 'lastName', 'age'],
+            props: {
+                firstName: String,
+                lastName: String,
+                age: Number,
+                hero: Boolean,
+                powers: Array,
+                features: Object,
+            },
             data() {
                 return {
                 }
