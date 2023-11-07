@@ -13,9 +13,11 @@
                     :first-name="user.first_name"
                     :last-name="user.last_name"
                     :age="user.age"
-                    hero
+                    :color="user.color"
+                    :hero="user.hero"
                     :powers="user.powers"
                     :features="user.features"
+                    :description="user.description"
                 ></user-profile>
             </div>
         </div>
@@ -28,9 +30,11 @@
                 Nome: {{firstName}} <br>
                 Sobrenome: {{lastName}} <br>
                 Idade: {{age}} <br>
+                Cor: {{color}} <br>
                 Herói: {{hero ? 'Eu sou herói' : 'Não sou herói'}} <br>
                 Poderes: {{powers}} <br>
-                Características: {{features}}
+                Características: {{features}} <br>
+                Descrição: {{description}}
             </div>
         </div>
     </template>
@@ -45,8 +49,10 @@
                         last_name: 'Snow',
                         age: 35,
                         hero: true,
+                        color: 'gold',
                         powers: ['Espada mágica', 'Imortalidade'],
-                        features: { hair: 'long' }
+                        features: { hair: 'long' },
+                        description: () => 'Esse é o personagem do jogo.'
                     }
                 }
             },
@@ -54,12 +60,38 @@
 
         app.component('user-profile', {
             props: {
-                firstName: String,
-                lastName: String,
-                age: Number,
-                hero: Boolean,
-                powers: Array,
-                features: Object,
+                firstName: {
+                    type: String,
+                    default: '',
+                },
+                lastName: {
+                    type: String,
+                    default: '',
+                },
+                age: {
+                    type: Number,
+                    default: 0,
+                },
+                color: {
+                    type: String,
+                    validator: (value) => ['gold', 'silver'].includes(value)
+                },
+                hero: {
+                    type: Boolean,
+                    default: false,
+                },
+                powers: {
+                    type: Array,
+                    default: () => []
+                },
+                features: {
+                    type: Object,
+                    default: () => ({})
+                },
+                description: {
+                    type: Function,
+                    default: () => 'Descrição padrão.'
+                }
             },
             data() {
                 return {
