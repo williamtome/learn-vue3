@@ -39,7 +39,15 @@
 
             mounted() {
                 console.log(this.$el, 'mounted')
-            }
+            },
+
+            beforeUpdate() {
+                console.log(this.title,'beforeUpdate')
+            },
+
+            updated() {
+                console.log(this.title,'updated')
+            },
         }).mount('#app')
     </script>
 </body>
