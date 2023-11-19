@@ -10,9 +10,15 @@
         <div class="container mt-5">
             <div class="mx-auto" style="width: 600px;">
                 <h1>{{ title }}</h1>
+
+                <user v-if="showComponent"></user>
             </div>
         </div>
     </div>
+
+    <template id="user">
+        <div>Meu componente</div>
+    </template>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
@@ -20,9 +26,12 @@
             data() {
                 return {
                     title: 'Hello World',
+                    showComponent: true,
                 }
             },
 
+
+            /*
             beforeCreate() {
                 console.log(this.$el)
                 console.log(this.title, 'beforeCreate')
@@ -47,8 +56,22 @@
 
             updated() {
                 console.log(this.title,'updated')
+            },*/
+        })
+
+        app.component('user', {
+            template: '#user',
+
+            beforeUnmount() {
+                console.log('beforeUnmount')
             },
-        }).mount('#app')
+
+            unmounted() {
+                console.log('unmounted')
+            },
+        })
+
+        const app2 = app.mount('#app')
     </script>
 </body>
 </html>
