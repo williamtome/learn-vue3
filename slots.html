@@ -15,6 +15,10 @@
                 <fancy-button>
                     {{ message }}
                 </fancy-button>
+
+                <br><br>
+
+                <submit-button>Enviar alterado</submit-button>
             </div>
         </div>
     </div>
@@ -22,6 +26,14 @@
     <template id="fancyButton">
         <button class="btn btn-danger">
             <slot></slot>
+        </button>
+    </template>
+
+    <template id="submitButton">
+        <button type="submit">
+            <slot>
+                Enviar
+            </slot>
         </button>
     </template>
 
@@ -38,6 +50,10 @@
 
         app.component('fancy-button', {
             template: '#fancyButton',
+        })
+
+        app.component('submit-button', {
+            template: '#submitButton',
         })
 
         app.mount('#app')
