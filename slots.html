@@ -12,13 +12,27 @@
             <div class="mx-auto" style="width: 600px;">
                 <h1>{{ title }}</h1>
 
+                <!-- Conteúdo e saída do slot -->
                 <fancy-button>
                     {{ message }}
                 </fancy-button>
 
                 <br><br>
 
+                <!-- Conteúdo substituto -->
                 <submit-button>Enviar alterado</submit-button>
+
+                <br><br>
+
+                <!-- Slots nomeados -->
+                <awesome-button>
+                    <template #prepend>
+                        <i class="bi bi-check-lg"></i>
+                    </template>
+                    <template #append>
+                        <i class="bi bi-arrow-repeat"></i>
+                    </template>
+                </awesome-button>
             </div>
         </div>
     </div>
@@ -34,6 +48,16 @@
             <slot>
                 Enviar
             </slot>
+        </button>
+    </template>
+
+    <template id="awesomeButton">
+        <button>
+            <slot name="prepend"></slot>
+            <slot>
+                Awesome Button
+            </slot>
+            <slot name="append"></slot>
         </button>
     </template>
 
@@ -54,6 +78,10 @@
 
         app.component('submit-button', {
             template: '#submitButton',
+        })
+
+        app.component('awesome-button', {
+            template: '#awesomeButton',
         })
 
         app.mount('#app')
