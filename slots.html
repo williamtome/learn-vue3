@@ -61,6 +61,20 @@
         </button>
     </template>
 
+    <template id="baseLayout">
+        <div class="container">
+            <header>
+                <slot #name="header"></slot>
+            </header>
+            <main>
+                <slot></slot>
+            </main>
+            <footer>
+                <slot name="footer"></slot>
+            </footer>
+        </div>
+    </template>
+
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
         const app = Vue.createApp({
@@ -82,6 +96,10 @@
 
         app.component('awesome-button', {
             template: '#awesomeButton',
+        })
+
+        app.component('base-layout', {
+            template: '#baseLayout',
         })
 
         app.mount('#app')
