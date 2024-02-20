@@ -9,47 +9,93 @@
 <body>
     <div id="app">
         <div class="container mt-5">
-            <h1>{{ title }}</h1>
+            <h1>{{ title }}</h1><br>
 
-            <div v-for="question in questions" :key="question">
-                <h4>{{ question.title }}</h4>
+            <pai>
+                <filho>
+                    <neto></neto>
+                </filho>
+            </pai>
 
-                <component :is="`form-${question.type}`"></component>
-            </div>
+<!--            <div v-for="question in questions" :key="question">-->
+<!--                <h4>{{ question.title }}</h4>-->
+
+<!--                <component :is="`form-${question.type}`"></component>-->
+<!--            </div>-->
         </div>
     </div>
 
-    <template id="formInput">
-        <input type="text" class="form-control"> <br>
+    <template id="pai">
+        <div>
+            <h2>Pai</h2>
+            {{ todos }}
+            <slot></slot>
+        </div>
     </template>
 
-    <template id="formTextarea">
-        <textarea class="form-control"></textarea> <br>
+    <template id="filho">
+        <div>
+            <h2>Filho</h2>
+            {{ todos }}
+            <slot></slot>
+        </div>
     </template>
+
+    <template id="neto">
+        <div>
+            <h2>Neto</h2>
+            {{ todos }}
+        </div>
+    </template>
+
+    <!--    <template id="formInput">-->
+    <!--        <input type="text" class="form-control"> <br>-->
+    <!--    </template>-->
+
+    <!--    <template id="formTextarea">-->
+    <!--        <textarea class="form-control"></textarea> <br>-->
+    <!--    </template>-->
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
         const app = Vue.createApp({
+            provide() {
+                return {
+                    todos: this.todos
+                }
+            },
             data() {
                 return {
                     title: 'Vue 3 Pro',
                     type: 'input',
-                    questions: [
-                        { title: 'Questão 1', type: 'input' },
-                        { title: 'Questão 2', type: 'textarea' },
-                        { title: 'Questão 3', type: 'input' },
-                        { title: 'Questão 4', type: 'textarea' },
-                        { title: 'Questão 5', type: 'input' },
-                    ],
+                    todos: ['1', '2', '3'],
+                    // questions: [
+                    //     { title: 'Questão 1', type: 'input' },
+                    //     { title: 'Questão 2', type: 'textarea' },
+                    //     { title: 'Questão 3', type: 'input' },
+                    //     { title: 'Questão 4', type: 'textarea' },
+                    //     { title: 'Questão 5', type: 'input' },
+                    // ],
                 }
             },
         })
-        .component('form-input', {
-            template: '#formInput',
+        .component('pai', {
+            inject: ['todos'],
+            template: '#pai',
         })
-        .component('form-textarea', {
-            template: '#formTextarea',
+        .component('filho', {
+            template: '#filho',
         })
+        .component('neto', {
+            inject: ['todos'],
+            template: '#neto',
+        })
+        // .component('form-input', {
+        //     template: '#formInput',
+        // })
+        // .component('form-textarea', {
+        //     template: '#formTextarea',
+        // })
         .mount('#app')
     </script>
 </body>
