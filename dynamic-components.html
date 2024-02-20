@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+    <div id="app">
+        <div class="container mt-5">
+            <h1>{{ title }}</h1>
+
+            <div v-for="question in questions" :key="question">
+                <h4>{{ question.title }}</h4>
+
+                <component :is="`form-${question.type}`"></component>
+            </div>
+        </div>
+    </div>
+
+    <template id="formInput">
+        <input type="text" class="form-control"> <br>
+    </template>
+
+    <template id="formTextarea">
+        <textarea class="form-control"></textarea> <br>
+    </template>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    title: 'Vue 3 Pro',
+                    type: 'input',
+                    questions: [
+                        { title: 'Questão 1', type: 'input' },
+                        { title: 'Questão 2', type: 'textarea' },
+                        { title: 'Questão 3', type: 'input' },
+                        { title: 'Questão 4', type: 'textarea' },
+                        { title: 'Questão 5', type: 'input' },
+                    ],
+                }
+            },
+        })
+        .component('form-input', {
+            template: '#formInput',
+        })
+        .component('form-textarea', {
+            template: '#formTextarea',
+        })
+        .mount('#app')
+    </script>
+</body>
+</html>
